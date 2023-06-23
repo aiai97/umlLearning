@@ -1,0 +1,14 @@
+@startuml
+caller -> server : conReq
+hnote over caller : 空闲
+caller <- server: conConf
+rnote over server
+"r 是正方形"
+"h 是六边形"
+endrnote
+rnote over server
+多
+行文
+本
+endrnote
+@enduml

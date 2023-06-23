@@ -1,0 +1,11 @@
+@startuml
+participant Participant [
+    =Title
+    ----
+    ""打算""
+]
+
+participant Bob
+
+Participant -> Bob
+@enduml
