@@ -1,0 +1,6 @@
+digraph G{
+    魔兽争霸 -> XHero;
+    魔兽争霸 -> 超级战舰;
+    XHero -> Footman;
+    Footman -> 刀塔;
+}

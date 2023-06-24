@@ -1,0 +1,88 @@
+"node" represents a single node or vertex in a graph.
+"edge" represents a connection or relationship between two nodes in a graph.
+"graph" represents a collection of nodes and edges, and it is the top-level entity in Graphviz.
+"digraph" (short for directed graph) represents a graph in which the edges have a specific direction or flow.
+"subgraph" represents a smaller subset of nodes and edges within a larger graph. It can be used to group related nodes and edges together.
+"cluster" represents a special type of subgraph that is visually distinguished from the rest of the graph. Clusters are typically used to group nodes and edges that have some common properties or characteristics.
+In summary, "node" and "edge" are the fundamental components of a graph, "graph" is the overall structure that contains nodes and edges, "digraph" specifies a directed graph, "subgraph" is a smaller subset of nodes and edges within a graph, and "cluster" is a visually distinguishable subset of nodes and edges within a graph.
+
+
+[ strict ] (graph | digraph) [ ID ] '{' stmt_list '}'
+stmt_list	:	[ stmt [ ';' ] stmt_list ]
+stmt	:	node_stmt
+|	edge_stmt
+|	attr_stmt
+|	ID '=' ID
+|	subgraph
+attr_stmt	:	(graph | node | edge) attr_list
+attr_list	:	'[' [ a_list ] ']' [ attr_list ]
+a_list	:	ID '=' ID [ (';' | ',') ] [ a_list ]
+edge_stmt	:	(node_id | subgraph) edgeRHS [ attr_list ]
+edgeRHS	:	edgeop (node_id | subgraph) [ edgeRHS ]
+node_stmt	:	node_id [ attr_list ]
+node_id	:	ID [ port ]
+port	:	':' ID [ ':' compass_pt ]
+|	':' compass_pt
+subgraph	:	[ subgraph [ ID ] ] '{' stmt_list '}'
+compass_pt	:	(n | ne | e | se | s | sw | w | nw | c | _)
+
+
+graph: Represents a graph declaration. It can be optionally preceded by the keyword "strict" to indicate strict graph semantics. It can be followed by either "graph" or "digraph" to specify the type of graph. An optional identifier (ID) can be provided to assign a name to the graph. It is followed by a block of statements (stmt_list) enclosed in curly braces.
+
+stmt_list: Represents a list of statements. It can contain zero or more statements (stmt) separated by semicolons. The last statement in the list may or may not end with a semicolon.
+
+stmt: Represents various types of statements that can occur in the graph definition. It can be one of the following:
+
+node_stmt: Represents a statement defining a node.
+edge_stmt: Represents a statement defining an edge.
+attr_stmt: Represents a statement defining attributes for the graph, node, or edge.
+ID '=' ID: Represents an assignment statement where an identifier (ID) is assigned a value.
+subgraph: Represents a statement defining a subgraph.
+attr_stmt: Represents an attribute statement that defines attributes for the graph, node, or edge. It starts with the keyword "graph", "node", or "edge" followed by an attribute list (attr_list).
+
+attr_list: Represents a list of attributes enclosed in square brackets. It can contain zero or more attribute assignments (a_list). Multiple attribute lists can be specified.
+
+a_list: Represents an attribute assignment in the form of ID = ID. It can be followed by a semicolon or comma. Multiple attribute assignments can be specified in a list.
+
+edge_stmt: Represents a statement defining an edge. It starts with either a node_id or a subgraph, followed by an edge description (edgeRHS). An optional attribute list (attr_list) can be specified.
+
+edgeRHS: Represents the right-hand side of an edge. It consists of an edge operator (edgeop) followed by either a node_id or a subgraph. It can be followed by another edgeRHS to represent multiple edges.
+
+node_stmt: Represents a statement defining a node. It starts with a node_id followed by an optional attribute list (attr_list).
+
+node_id: Represents a node identifier. It is an ID that can be followed by a port specification.
+
+port: Represents a port specification for a node. It can be either ':' ID ':' compass_pt or ':' compass_pt.
+
+subgraph: Represents a statement defining a subgraph. It starts with an optional "subgraph" keyword followed by an optional identifier (ID). It is followed by a block of statements (stmt_list) enclosed in curly braces.
+
+compass_pt: Represents a compass point that specifies the position or direction, such as north (n), northeast (ne), east (e), and so on. It can also be an underscore (_) or the letter c to represent the center.
+
+
+edgeRHS
+digraph Example {
+    A -> B -> C -> D;
+    A -> {E F G};
+    B -> subgraph {
+        H -> I;
+        J -> K;
+    }
+}
+
+无向图（Undirected Graphs）：
+
+neato引擎适合绘制几何结构明显的无向图，如地图、组织结构图等。
+有向图（Directed Graphs）：
+
+dot引擎是最常用的绘制有向图的引擎，适合绘制关系图、流程图、控制流图等。
+复杂网络图（Complex Network Graphs）：
+
+sfdp引擎适合绘制大规模的复杂网络图，它在处理边交叉最小化方面效果较好。
+层次结构图（Hierarchical Graphs）：
+
+dot引擎在绘制层次结构图（如组织结构图、分类图等）时表现良好，它可以根据图的结构自动进行布局。
+高维数据可视化（High-Dimensional Data Visualization）：
+
+neato引擎和fdp引擎可以用于绘制高维数据的可视化图形，它们可以将高维数据映射到二维或三维空间中进行可视化展示。
+
+https://graphviztutorial.readthedocs.io/zh_CN/latest/chap02.html
